@@ -10,6 +10,7 @@ import com.manuu.phdreport.exceptions.InvalidOtpException;
 import com.manuu.phdreport.exceptions.UserAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -25,7 +26,7 @@ public class AuthService {
     private final UserDaoImpl userDao;
     private final UserVerificationDaoImpl userVerificationDao;
     private final EmailService emailService;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public void registerUser(UserRegistrationRequest request) {
         if (userVerificationDao.findByEmail(request.getEmail()).isPresent() || Objects.nonNull(userDao.findByEmail(request.getEmail()))) {
@@ -54,8 +55,7 @@ public class AuthService {
         // Store the actual user password (hashed)
         User newUser = User.builder()
                 .email(request.getEmail())
-                .password(request.getPassword()) // Hashing the user password
-//                .password(passwordEncoder.encode(password)) // Hashing the user password
+                .password(passwordEncoder.encode(request.getPassword())) // Hashing the user password
                 .role(request.getRole()) // Default role, modify based on input
                 .status("PENDING")
                 .build();
