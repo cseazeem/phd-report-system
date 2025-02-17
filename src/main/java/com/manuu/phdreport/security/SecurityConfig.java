@@ -37,13 +37,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/auth/welcome",
-                                "/auth/addNewUserOrAdmin",
                                 "/api/auth/**"
-//                                "/api/auth/register",    // Allowing sendOtp endpoint
-//                                "/auth/verifyOtpSignup",  // Allowing verifyOtp endpoint
-//                                "/auth/sendResetToken", // Allowing sendResetToken endpoint
-//                                "/auth/resetPassword"
                         ).permitAll()
                         .requestMatchers("/auth/user/**").hasAuthority("USER")
                         .requestMatchers("/auth/admin/**").hasAuthority("ADMIN")
