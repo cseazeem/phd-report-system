@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <!-- 1. Users Table (Master Table for All Users) -->
-    <changeSet id="1-create-users-table" author="katie">
+    <changeSet id="1-create-users-table" author="cseazeem">
         <createTable tableName="users">
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
@@ -28,14 +28,14 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2-add-user-role-check-constraint" author="katie">
+    <changeSet id="2-add-user-role-check-constraint" author="cseazeem">
         <sql>
             ALTER TABLE users ADD CONSTRAINT chk_user_role
                 CHECK (role IN ('SCHOLAR', 'COORDINATOR', 'RAC_MEMBER', 'ADMIN'));
         </sql>
     </changeSet>
 
-    <changeSet id="3-add-user-status-check-constraint" author="katie">
+    <changeSet id="3-add-user-status-check-constraint" author="cseazeem">
         <sql>
             ALTER TABLE users ADD CONSTRAINT chk_user_status
                 CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED'));
@@ -43,7 +43,7 @@
     </changeSet>
 
     <!-- User Verification Table (Temporary Before OTP Verification) -->
-    <changeSet id="4-create-user-verification-table" author="katie">
+    <changeSet id="4-create-user-verification-table" author="cseazeem">
         <createTable tableName="user_verification">
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
@@ -61,7 +61,7 @@
     </changeSet>
 
     <!-- 3. PhD Scholars Table -->
-    <changeSet id="5-create-phd-scholars-table" author="katie">
+    <changeSet id="5-modify-phd-scholars-table" author="cseazeem">
         <createTable tableName="phd_scholars">
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
@@ -69,21 +69,62 @@
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false" unique="true" foreignKeyName="fk_phd_user" references="users(id)"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="student_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="roll_number" type="VARCHAR(50)">
+            <column name="father_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="batch" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roll_no" type="VARCHAR(50)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="department" type="VARCHAR(255)">
+            <column name="passing_year" type="DATE">
                 <constraints nullable="false"/>
             </column>
+            <column name="heading_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enroll_no" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="profile_photo_url" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="supervisor" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hod_nominee" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="supervisor_nominee" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="research_title" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title_status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phd_coordinator" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
     </changeSet>
 
+
     <!-- 4. Coordinators Table -->
-    <changeSet id="6-create-coordinators-table" author="katie">
+    <changeSet id="6-create-coordinators-table" author="cseazeem">
         <createTable tableName="coordinators">
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
@@ -102,7 +143,7 @@
     </changeSet>
 
     <!-- 5. RAC Members Table -->
-    <changeSet id="7-create-rac-members-table" author="katie">
+    <changeSet id="7-create-rac-members-table" author="cseazeem">
         <createTable tableName="rac_members">
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
@@ -120,7 +161,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="8-add-rac-role-check-constraint" author="katie">
+    <changeSet id="8-add-rac-role-check-constraint" author="cseazeem">
         <sql>
             ALTER TABLE rac_members ADD CONSTRAINT chk_rac_role
                 CHECK (role IN ('SUPERVISOR', 'HOD_NOMINEE', 'SUPERVISOR_NOMINEE'));
@@ -128,7 +169,7 @@
     </changeSet>
 
     <!-- 6. Reports Table -->
-    <changeSet id="9-create-reports-table" author="katie">
+    <changeSet id="9-create-reports-table" author="cseazeem">
         <createTable tableName="reports">
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
@@ -151,7 +192,7 @@
     </changeSet>
 
     <!-- 7. Signatures Table -->
-    <changeSet id="10-create-signatures-table" author="katie">
+    <changeSet id="10-create-signatures-table" author="cseazeem">
         <createTable tableName="signatures">
             <column name="id" type="BIGSERIAL">
                 <constraints primaryKey="true"/>
