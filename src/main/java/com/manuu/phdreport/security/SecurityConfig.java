@@ -39,11 +39,8 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/**"
                         ).permitAll()
-                        .requestMatchers("/auth/user/**").hasAuthority("USER")
-                        .requestMatchers("/auth/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/products").permitAll() // Publicly accessible for viewing products
-                        .requestMatchers("/products/**").hasAnyAuthority("USER", "ADMIN") // Accessible for both roles
-                        .requestMatchers(HttpMethod.POST,"/admin/products").hasAuthority("ADMIN") // Admin-only for management
+                        .requestMatchers("/api/phd-scholar/**").hasAuthority("SCHOLAR")
+                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
