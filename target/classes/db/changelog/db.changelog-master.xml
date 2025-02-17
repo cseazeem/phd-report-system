@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- 1. Users Table (Master Table for All Users) -->
+    <changeSet id="1-create-users-table" author="katie">
+        <createTable tableName="users">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)" defaultValue="PENDING">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2-add-user-role-check-constraint" author="katie">
+        <sql>
+            ALTER TABLE users ADD CONSTRAINT chk_user_role
+                CHECK (role IN ('SCHOLAR', 'COORDINATOR', 'RAC_MEMBER', 'ADMIN'));
+        </sql>
+    </changeSet>
+
+    <changeSet id="3-add-user-status-check-constraint" author="katie">
+        <sql>
+            ALTER TABLE users ADD CONSTRAINT chk_user_status
+                CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED'));
+        </sql>
+    </changeSet>
+
+    <!-- User Verification Table (Temporary Before OTP Verification) -->
+    <changeSet id="4-create-user-verification-table" author="katie">
+        <createTable tableName="user_verification">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="otp" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expires_at" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- 3. PhD Scholars Table -->
+    <changeSet id="5-create-phd-scholars-table" author="katie">
+        <createTable tableName="phd_scholars">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true" foreignKeyName="fk_phd_user" references="users(id)"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roll_number" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="department" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 4. Coordinators Table -->
+    <changeSet id="6-create-coordinators-table" author="katie">
+        <createTable tableName="coordinators">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true" foreignKeyName="fk_coordinator_user" references="users(id)"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 5. RAC Members Table -->
+    <changeSet id="7-create-rac-members-table" author="katie">
+        <createTable tableName="rac_members">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" unique="true" foreignKeyName="fk_rac_user" references="users(id)"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="8-add-rac-role-check-constraint" author="katie">
+        <sql>
+            ALTER TABLE rac_members ADD CONSTRAINT chk_rac_role
+                CHECK (role IN ('SUPERVISOR', 'HOD_NOMINEE', 'SUPERVISOR_NOMINEE'));
+        </sql>
+    </changeSet>
+
+    <!-- 6. Reports Table -->
+    <changeSet id="9-create-reports-table" author="katie">
+        <createTable tableName="reports">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="scholar_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_report_scholar" references="phd_scholars(id)"/>
+            </column>
+            <column name="coordinator_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_report_coordinator" references="coordinators(id)"/>
+            </column>
+            <column name="status" type="VARCHAR(50)" defaultValue="PENDING">
+                <constraints nullable="false"/>
+            </column>
+            <column name="report_path" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 7. Signatures Table -->
+    <changeSet id="10-create-signatures-table" author="katie">
+        <createTable tableName="signatures">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="rac_member_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_signature_rac" references="rac_members(id)"/>
+            </column>
+            <column name="report_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_signature_report" references="reports(id)"/>
+            </column>
+            <column name="signature_path" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
