@@ -40,5 +40,5 @@
 
 ### 🖥️ Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/phd-report-system.git
+git clone https://github.com/cseazeem/phd-report-system.git
 cd phd-report-system
