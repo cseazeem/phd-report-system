@@ -36,5 +36,13 @@ public interface UserDao {
     @SqlQuery("SELECT * FROM users WHERE id = :id")
     @RegisterBeanMapper(User.class)
     User findById(@Bind("id") Long id);
+
+    @SqlQuery("SELECT * FROM users WHERE role = :role ORDER BY created_at DESC LIMIT :size OFFSET :offset")
+    @RegisterBeanMapper(UserResponse.class)
+    List<UserResponse> findAllPaginatedByRole(@Bind("role") String role, @Bind("size") int size, @Bind("offset") int offset);
+
+    @SqlQuery("SELECT COUNT(*) FROM users WHERE role = :role")
+    int countUsersByRole(@Bind("role") String role);
+
 }
 

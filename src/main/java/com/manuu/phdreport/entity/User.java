@@ -1,9 +1,6 @@
 package com.manuu.phdreport.entity;
 
 import lombok.*;
-
-import java.time.LocalDateTime;
-
 @Data
 @Builder
 @NoArgsConstructor
