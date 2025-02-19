@@ -1,6 +1,7 @@
 package com.manuu.phdreport.configuration;
 
-import com.manuu.phdreport.database.PhDScholarDao;
+import com.manuu.phdreport.database.CoordinatorDao;
+import com.manuu.phdreport.database.ScholarDao;
 import com.manuu.phdreport.database.UserDao;
 import com.manuu.phdreport.database.UserVerificationDao;
 import org.jdbi.v3.core.Jdbi;
@@ -45,8 +46,13 @@ public class JdbiConfiguration {
         return jdbi.onDemand(UserVerificationDao.class);
     }
     @Bean
-    public PhDScholarDao phDScholarDao(Jdbi jdbi) {
-        return jdbi.onDemand(PhDScholarDao.class);
+    public ScholarDao phDScholarDao(Jdbi jdbi) {
+        return jdbi.onDemand(ScholarDao.class);
+    }
+
+    @Bean
+    public CoordinatorDao coordinatorDao(Jdbi jdbi) {
+        return jdbi.onDemand(CoordinatorDao.class);
     }
 }
 

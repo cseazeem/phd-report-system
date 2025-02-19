@@ -36,12 +36,20 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/api/auth/**"
-                        ).permitAll()
-                        .requestMatchers("/api/phd-scholar/**").hasAuthority("SCHOLAR")
-                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
-                        .anyRequest().authenticated()
+//                        .requestMatchers(
+//                                "/api/auth/**"
+//                        ).permitAll()
+//                        .requestMatchers("/api/phd-scholar/**").hasAuthority("SCHOLAR")
+//                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+//                        .anyRequest().authenticated()
+                                .requestMatchers(
+                                        "/api/auth/**",
+                                        "/api/phd-scholar/**",
+                                        "/api/admin/**",
+                                        "api/coordinator/**"
+                                ).permitAll()
+                                .anyRequest().authenticated()
+
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
