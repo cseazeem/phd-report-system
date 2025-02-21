@@ -1,12 +1,10 @@
 package com.manuu.phdreport.service;
 
 import com.manuu.phdreport.database.CoordinatorDao;
+import com.manuu.phdreport.database.RACMemberDao;
 import com.manuu.phdreport.database.ScholarDao;
 import com.manuu.phdreport.database.UserDaoImpl;
-import com.manuu.phdreport.entity.Coordinator;
-import com.manuu.phdreport.entity.Scholar;
-import com.manuu.phdreport.entity.User;
-import com.manuu.phdreport.entity.UserResponse;
+import com.manuu.phdreport.entity.*;
 import com.manuu.phdreport.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +25,7 @@ public class UserService {
     private final EmailService emailService;
     private final ScholarDao phdScholarDao;
     private final CoordinatorDao coordinatorDao;
+    private final RACMemberDao racMemberDao;
 
     public Page<UserResponse> getAllUsers(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -64,7 +63,7 @@ public class UserService {
                 .build();
     }
 
-    public void approveUser(Long userId) {
+    public void approveUser(Long userId,String racMemberRole) throws UserNotFoundException {
         //fetch the user from the database
         User user = Optional.ofNullable(userDao.findById(userId))
                 .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
@@ -88,37 +87,33 @@ public class UserService {
             Scholar scholar = new Scholar();
             scholar.setUserId(user.getId());
             scholar.setEmail(user.getEmail());
-            scholar.setScholarName(null);  // Will be updated later
-            scholar.setFatherName(null);
-            scholar.setBatch(null);
-            scholar.setRollNo(null);
-
-            // Handle nullable integer field properly
-            scholar.setPassingYear(null);  // Avoid Integer.parseInt("") error
-
-            // Handle nullable date field properly
-            scholar.setHeadingDate(null);  // Avoid LocalDate.parse("") error
-
+            scholar.setScholarName("Default Name");  // Ensure scholar_name is not null
+            scholar.setFatherName("Default Father Name");
+            scholar.setBatch("Default Batch");
+            scholar.setRollNo("Default Roll No");
+            scholar.setPassingYear(null);
+            scholar.setHeadingDate(null);
             scholar.setEnrollmentNo(null);
-            scholar.setSupervisor(null);
+            scholar.setSupervisor("Default Supervisor");
             scholar.setHodNominee(null);
             scholar.setSupervisorNominee(null);
-            scholar.setResearchTitle(null);
-
-            // Mandatory field with default value
+            scholar.setResearchTitle("Default Research Title");
             scholar.setStatus("APPROVED");
-
-            scholar.setTitleStatus(null);
+            scholar.setTitleStatus("Default Title Status");
             scholar.setPhdCoordinator(null);
+            scholar.setYearOfAdmission(2000);
+            scholar.setPhdCoordinator("Default PhD Coordinator");
 
             // Insert into phd_scholars table
             phdScholarDao.insertScholar(scholar);
+            //send confirmation email to the user
+            emailService.sendConfirmation(user.getEmail(), user.getRole());
         }
 
-
-        else if (user.getRole().equals("COORDINATOR")) {
+        if (user.getRole().equals("COORDINATOR")) {
             Coordinator coordinator = Coordinator.builder()
                     .userId(user.getId())
+                    .email(user.getEmail())
                     .name("Default Name")  // Admin can update later
                     .department("Default Department")
                     .build();
@@ -126,8 +121,24 @@ public class UserService {
             emailService.sendConfirmation(user.getEmail(), "Coordinator Approved");
         }
 
-        //send confirmation email to the user
-        emailService.sendConfirmation(user.getEmail(), user.getRole());
+
+        // Handle RAC_MEMBER role assignment
+        if (user.getRole().equals("RAC_MEMBER")) {
+            if (!List.of("SUPERVISOR", "HOD_NOMINEE", "SUPERVISOR_NOMINEE").contains(racMemberRole)) {
+                throw new IllegalStateException("Invalid RAC_MEMBER role: " + racMemberRole);
+            }
+
+            RACMember racMember = RACMember.builder()
+                    .userId(user.getId())
+                    .email(user.getEmail())
+                    .role(racMemberRole) // Set role dynamically
+                    .name("Default Name")
+                    .department("Default Department")
+                    .build();
+
+            racMemberDao.insertRACMember(racMember);
+            emailService.sendConfirmation(user.getEmail(), "RAC Member Approved as " + racMemberRole);
+        }
     }
 
     public void rejectUser(Long userId) {

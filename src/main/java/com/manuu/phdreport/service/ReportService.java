@@ -1,7 +1,12 @@
 package com.manuu.phdreport.service;
 
-import com.manuu.phdreport.database.ScholarDao;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.layout.element.Image;
+import com.manuu.phdreport.database.*;
+import com.manuu.phdreport.entity.Report;
 import com.manuu.phdreport.entity.Scholar;
+import com.manuu.phdreport.entity.Signature;
+import com.manuu.phdreport.exceptions.ReportNotFoundException;
 import com.manuu.phdreport.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -12,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
 
 import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.layout.Document;
@@ -22,8 +29,12 @@ import com.itextpdf.layout.element.Paragraph;
 public class ReportService {
 
     private final ScholarDao scholarDao;
+    private final ReportDaoImpl reportDao;
+    private final CoordinatorDao coordinatorDao;
+    private final ReportApprovalDao reportApprovalDao;
+    private final SignatureDao signatureDao;
 
-    public String generateScholarReport(Long scholarId) throws Exception {
+    public String generateScholarReport(Long scholarId, Long coordinatorUserId) throws Exception {
         Scholar scholar = scholarDao.findById(scholarId);
         if (scholar == null) {
             throw new UserNotFoundException("Scholar not found");
@@ -37,6 +48,21 @@ public class ReportService {
 
         convertDocxToPdf(generatedDocxPath, generatedPdfPath);
         System.out.println("DOCX converted to PDF successfully!");
+
+        Long coordinatorId = coordinatorDao.findById(coordinatorUserId)
+                .map(coordinator -> coordinator.getId())
+                .orElseThrow(() -> new UserNotFoundException("Coordinator not found"));
+
+        // Save report details in the database using JDBI
+        Report report = new Report();
+        report.setScholarId(scholarId);
+        report.setCoordinatorId(coordinatorId);
+        report.setStatus("PENDING");
+        report.setReportPath(generatedPdfPath);
+
+        reportDao.insertReport(report); // Using JDBI to insert report
+
+
         return generatedPdfPath;
     }
 
@@ -101,6 +127,74 @@ public class ReportService {
             throw new IOException("Error converting DOCX to PDF: " + e.getMessage(), e);
         }
     }
+
+    public File getReportFile(Long scholarId) {
+        Scholar scholar = scholarDao.findById(scholarId);
+        if (scholar == null) {
+            throw new UserNotFoundException("Scholar not found");
+        }
+        Report report = reportDao.findByScholarId(scholarId);
+
+        return new File(report.getReportPath());
+    }
+
+
+    public boolean approveReport(Long reportId, Long racMemberId, String role) {
+        Report report = reportDao.findById(reportId);
+        if (report == null) {
+            throw new ReportNotFoundException("Report not found");
+        }
+
+        // Save RAC Member approval
+        reportApprovalDao.saveApproval(reportId, racMemberId, role, "APPROVED","");
+
+        // Check if all 3 RAC Members have approved
+        boolean isFullyApproved = reportApprovalDao.isReportFullyApproved(reportId);
+
+        if (isFullyApproved) {
+            // Add digital signatures to the report
+            addSignaturesToReport(reportId);
+            reportDao.updateReportStatus(reportId, "APPROVED");
+        }
+        return isFullyApproved;
+    }
+
+    public void rejectReport(Long reportId, Long racMemberId, String remarks, String role) {
+        Report report = Optional.ofNullable(reportDao.findById(reportId))
+                .orElseThrow(() -> new ReportNotFoundException("Report not found"));
+
+        // Save rejection
+        reportApprovalDao.saveApproval(reportId, racMemberId, role,"REJECTED", remarks);
+
+        // Update report status to REJECTED
+        reportDao.updateReportStatus(reportId, "REJECTED");
+    }
+
+    public void addSignaturesToReport(Long reportId) {
+        Report report = Optional.ofNullable(reportDao.findById(reportId))
+                .orElseThrow(() -> new ReportNotFoundException("Report not found"));
+
+        List<Signature> signatures = signatureDao.getSignaturesForReport(reportId);
+
+        String pdfPath = report.getReportPath();
+        String signedPdfPath = pdfPath.replace(".pdf", "_signed.pdf");
+
+        try (PdfDocument pdfDoc = new PdfDocument(new PdfReader(pdfPath), new PdfWriter(signedPdfPath))) {
+            Document doc = new Document(pdfDoc);
+
+            for (Signature signature : signatures) {
+                Image img = new Image(ImageDataFactory.create(signature.getSignaturePath()));
+                img.setFixedPosition(signature.getX(), signature.getY());
+                doc.add(img);
+            }
+
+            doc.close();
+            reportDao.updateReportPath(reportId, signedPdfPath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to add signatures to PDF", e);
+        }
+    }
+
 
 }
 

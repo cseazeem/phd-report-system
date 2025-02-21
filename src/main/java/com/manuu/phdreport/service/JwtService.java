@@ -32,9 +32,25 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
+    public Long extractUserId(String token) {
+        return Long.parseLong(getClaims(token).get("id").toString());
+    }
+
+    public String extractRole(String token) {
+        return getClaims(token).get("role").toString();
+    }
+
+    private Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secretKeyBytes)) // Fixed
+                .build()
+                .parseClaimsJws(token.replace("Bearer ", ""))
+                .getBody();
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(secretKeyBytes)
+                .setSigningKey(Keys.hmacShaKeyFor(secretKeyBytes))
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -44,9 +60,11 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails,String role,Long id) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .claim("role", role) // Adding role for RBAC
+                .claim("id", id) // Adding role for RBAC
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(Keys.hmacShaKeyFor(secretKeyBytes), SignatureAlgorithm.HS256)
@@ -60,8 +78,9 @@ public class JwtService {
 
     public String validateResetToken(String token) {
         try {
-            Claims claims = Jwts.parser()
-                    .setSigningKey(secretKeyBytes)
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(secretKeyBytes))
+                    .build()
                     .parseClaimsJws(token)
                     .getBody();
 
@@ -78,10 +97,9 @@ public class JwtService {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 15 * 60 * 1000)) // 15 minutes validity
-                .signWith(SignatureAlgorithm.HS512, secretKeyBytes) // Use your secret key
+                .signWith(Keys.hmacShaKeyFor(secretKeyBytes), SignatureAlgorithm.HS256) // Use your secret key
                 .compact();
     }
-
 
     public long getExpirationTime() {
         return jwtExpirationMs;

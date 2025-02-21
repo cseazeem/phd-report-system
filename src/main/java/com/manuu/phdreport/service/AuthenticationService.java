@@ -5,11 +5,14 @@ import com.manuu.phdreport.database.UserDaoImpl;
 import com.manuu.phdreport.entity.AuthRequest;
 import com.manuu.phdreport.entity.User;
 import com.manuu.phdreport.exceptions.InvalidEmailOrPasswordException;
+import com.manuu.phdreport.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +36,9 @@ public class AuthenticationService {
         }
 
         User user = userDao.findByEmail(input.getEmail());
-//        if (Objects.isNull(user)){
-//                throw new InvalidArgumentException("User not found");
-//        }
+        if (Objects.isNull(user)){
+                throw new UserNotFoundException("User not found");
+        }
         return user;
     }
 }

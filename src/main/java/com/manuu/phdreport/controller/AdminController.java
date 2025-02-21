@@ -20,16 +20,18 @@ public class AdminController {
     private final UserService userService;
 
     @PutMapping("/approve-user/{userId}")
-    public ResponseEntity<String> approveUser(@PathVariable Long userId) {
+    public ResponseEntity<String> approveUser(@PathVariable Long userId,
+                                              @RequestParam(required = false) String racMemberRole) {
         try {
-            userService.approveUser(userId);
-            return ResponseEntity.ok("User approval initiated.");
+            userService.approveUser(userId, racMemberRole);
+            return ResponseEntity.ok("User approved successfully.");
         } catch (UserNotFoundException e) {
             throw new UserNotFoundException("User not found or already approved/rejected.");
         } catch (IllegalStateException e) {
             throw new IllegalStateException("Invalid role: " + e.getMessage());
         }
     }
+
 
     @PutMapping("/reject-user/{userId}")
     public ResponseEntity<String> rejectUser(@PathVariable Long userId) {

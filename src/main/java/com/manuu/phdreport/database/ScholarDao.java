@@ -31,18 +31,34 @@ Long insertScholar(@BindBean Scholar scholar);
 
     @SqlUpdate("""
     UPDATE phd_scholars 
-    SET scholar_name = :scholarName, father_name = :fatherName, email = :email,
-        batch = :batch, roll_no = :rollNo, passing_year = :passingYear, heading_date = :headingDate,
-        date_of_joining = :dateOfJoining, year_of_admission = :yearOfAdmission, enrollment_no = :enrollmentNo,
-        profile_photo_url = :profilePhotoUrl, co_supervisor = :coSupervisor, phd_coordinator = :phdCoordinator,
-        nationality = :nationality, viva_date = :vivaDate, fellowship = :fellowship, 
-        full_time_or_part_time = :fullTimeOrPartTime, supervisor = :supervisor, hod_nominee = :hodNominee, 
-        supervisor_nominee = :supervisorNominee, research_title = :researchTitle, 
-        status = :status, title_status = :titleStatus
+    SET 
+        scholar_name = COALESCE(:scholarName, scholar_name), 
+        father_name = COALESCE(:fatherName, father_name), 
+        email = COALESCE(:email, email),
+        batch = COALESCE(:batch, batch), 
+        roll_no = COALESCE(:rollNo, roll_no), 
+        passing_year = COALESCE(:passingYear, passing_year), 
+        heading_date = COALESCE(:headingDate, heading_date),
+        date_of_joining = COALESCE(:dateOfJoining, date_of_joining), 
+        year_of_admission = COALESCE(:yearOfAdmission, year_of_admission), 
+        enrollment_no = COALESCE(:enrollmentNo, enrollment_no),
+        profile_photo_url = COALESCE(:profilePhotoUrl, profile_photo_url), 
+        co_supervisor = COALESCE(:coSupervisor, co_supervisor), 
+        phd_coordinator = COALESCE(:phdCoordinator, phd_coordinator),
+        nationality = COALESCE(:nationality, nationality), 
+        viva_date = COALESCE(:vivaDate, viva_date), 
+        fellowship = COALESCE(:fellowship, fellowship), 
+        full_time_or_part_time = COALESCE(:fullTimeOrPartTime, full_time_or_part_time), 
+        supervisor = COALESCE(:supervisor, supervisor), 
+        hod_nominee = COALESCE(:hodNominee, hod_nominee), 
+        supervisor_nominee = COALESCE(:supervisorNominee, supervisor_nominee), 
+        research_title = COALESCE(:researchTitle, research_title), 
+        status = COALESCE(:status, status), 
+        title_status = COALESCE(:titleStatus, title_status),
+        updated_at = current_timestamp
     WHERE id = :id
 """)
     void update(@BindBean Scholar scholar);
-
 
 }
 
