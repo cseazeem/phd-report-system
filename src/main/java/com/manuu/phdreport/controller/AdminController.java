@@ -1,16 +1,12 @@
 package com.manuu.phdreport.controller;
 
-import com.manuu.phdreport.entity.User;
 import com.manuu.phdreport.entity.UserResponse;
 import com.manuu.phdreport.exceptions.UserNotFoundException;
-import com.manuu.phdreport.service.EmailService;
 import com.manuu.phdreport.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
