@@ -56,7 +56,6 @@ public class CoordinatorController {
             @RequestHeader("Authorization") String token) {
 
         // Extract coordinatorId from JWT
-//        Long coordinatorId = jwtUtils.extractUserId(token);
         String role = jwtUtils.extractRole(token);
 
         // Ensure only Coordinators can generate reports

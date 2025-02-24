@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public interface CoordinatorDao {
 
-    @SqlUpdate("INSERT INTO coordinators (user_id, name, department, created_at) " +
-            "VALUES (:userId, :name, :department, current_timestamp)")
+    @SqlUpdate("INSERT INTO coordinators (user_id, name, email, department, created_at) " +
+            "VALUES (:userId, :name, :email, :department, current_timestamp)")
     void insertCoordinator(@BindBean Coordinator coordinator);
 
 
