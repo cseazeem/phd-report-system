@@ -4,7 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c16324c2-b4ac-4f6d-9969-f292a6a62c10" name="Changes" comment="" />
+    <list default="true" id="c16324c2-b4ac-4f6d-9969-f292a6a62c10" name="Changes" comment="d3">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/configuration/JdbiConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/configuration/JdbiConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/changelog/db.changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/changelog/db.changelog-master.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/phd-report-system-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/phd-report-system-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.manuu.phdreport.PhdReportSystemApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.manuu.phdreport.PhdReportSystemApplicationTests.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,14 +33,32 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Exception" />
+        <option value="Record" />
         <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="phd_scholars" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;cseazeem&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/cseazeem/phd-report-system.git&quot;,
+    &quot;accountId&quot;: &quot;cd7c9f19-16e7-4d79-b90d-b961dc91ab6e&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -37,31 +74,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.phd-report-system [clean,install].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.PhdReportSystemApplication.executor": "Run",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/azeem/Desktop/Zaki/phd-report-system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.phd-report-system [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.phd-report-system [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.phd-report-system [dependency:tree].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.PhdReportSystemApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/azeem/Desktop/ZeoTap M&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
+      <command value="mvn clean" />
+      <command value="mvn dependency:tree " />
       <command value="mvn clean install" />
     </option>
   </component>
@@ -93,10 +141,181 @@
       <updated>1739557871343</updated>
       <workItem from="1739557872466" duration="29769000" />
       <workItem from="1739771001219" duration="813000" />
+      <workItem from="1739773346242" duration="123000" />
+      <workItem from="1739792591666" duration="1325000" />
+      <workItem from="1739804515129" duration="10971000" />
+      <workItem from="1739897852413" duration="23050000" />
+      <workItem from="1739983907337" duration="4081000" />
+      <workItem from="1740040290493" duration="33690000" />
+      <workItem from="1740148086571" duration="4000" />
+      <workItem from="1740163173494" duration="13000" />
+      <workItem from="1740208806974" duration="66000" />
+      <workItem from="1740246733018" duration="47000" />
+      <workItem from="1740250338619" duration="3251000" />
+      <workItem from="1740420287082" duration="100000" />
+      <workItem from="1740476153288" duration="534000" />
+      <workItem from="1740596351311" duration="60000" />
+      <workItem from="1740638836645" duration="61000" />
+      <workItem from="1740639008330" duration="624000" />
+      <workItem from="1740639639229" duration="9000" />
+      <workItem from="1740639955115" duration="1346000" />
+      <workItem from="1740642686164" duration="96000" />
+      <workItem from="1740853348583" duration="3476000" />
+      <workItem from="1740936951030" duration="651000" />
     </task>
+    <task id="LOCAL-00001" summary="cred">
+      <option name="closed" value="true" />
+      <created>1739773445531</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739773445531</updated>
+    </task>
+    <task id="LOCAL-00002" summary="RBAC">
+      <option name="closed" value="true" />
+      <created>1739810104392</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739810104392</updated>
+    </task>
+    <task id="LOCAL-00003" summary="RBAC">
+      <option name="closed" value="true" />
+      <created>1739810308912</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1739810308912</updated>
+    </task>
+    <task id="LOCAL-00004" summary="security config">
+      <option name="closed" value="true" />
+      <created>1739810486561</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739810486561</updated>
+    </task>
+    <task id="LOCAL-00005" summary="security config">
+      <option name="closed" value="true" />
+      <created>1739812067831</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1739812067831</updated>
+    </task>
+    <task id="LOCAL-00006" summary="scholar and coordinator">
+      <option name="closed" value="true" />
+      <created>1739986666523</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739986666523</updated>
+    </task>
+    <task id="LOCAL-00007" summary="day2">
+      <option name="closed" value="true" />
+      <created>1740147619730</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1740147619730</updated>
+    </task>
+    <task id="LOCAL-00008" summary="day2">
+      <option name="closed" value="true" />
+      <created>1740147819749</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1740147819749</updated>
+    </task>
+    <task id="LOCAL-00009" summary="d3">
+      <option name="closed" value="true" />
+      <created>1740246769935</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740246769935</updated>
+    </task>
+    <task id="LOCAL-00010" summary="d3">
+      <option name="closed" value="true" />
+      <created>1740420336668</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1740420336668</updated>
+    </task>
+    <task id="LOCAL-00011" summary="d3">
+      <option name="closed" value="true" />
+      <created>1740596402899</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1740596402899</updated>
+    </task>
+    <task id="LOCAL-00012" summary="d3">
+      <option name="closed" value="true" />
+      <created>1740853382837</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1740853382837</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="cred" />
+    <MESSAGE value="RBAC" />
+    <MESSAGE value="security config" />
+    <MESSAGE value="scholar and coordinator" />
+    <MESSAGE value="day2" />
+    <MESSAGE value="d3" />
+    <option name="LAST_COMMIT_MESSAGE" value="d3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/ScholarController.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java</url>
+          <line>62</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/ReportDaoImpl.java</url>
+          <line>18</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/CoordinatorController.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/UserService.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

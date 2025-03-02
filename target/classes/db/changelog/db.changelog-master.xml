@@ -42,7 +42,7 @@
         </sql>
     </changeSet>
 
-    <!-- User Verification Table (Temporary Before OTP Verification) -->
+    <!-- User Verification Table ( Temporary Before OTP Verification) -->
     <changeSet id="4-create-user-verification-table" author="cseazeem">
         <createTable tableName="user_verification">
             <column name="id" type="BIGSERIAL">
@@ -69,7 +69,7 @@
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false" unique="true" foreignKeyName="fk_phd_user" references="users(id)"/>
             </column>
-            <column name="student_name" type="VARCHAR(255)">
+            <column name="scholar_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="father_name" type="VARCHAR(255)">
@@ -78,34 +78,34 @@
             <column name="email" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="batch" type="VARCHAR(50)">
+            <column name="batch" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="roll_no" type="VARCHAR(50)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="passing_year" type="DATE">
+            <column name="roll_no" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="heading_date" type="DATE">
+            <column name="passing_year" type="INT"/>
+            <column name="heading_date" type="DATE"/>
+            <column name="date_of_joining" type="DATE"/>
+            <column name="year_of_admission" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="enroll_no" type="VARCHAR(100)">
-                <constraints nullable="true"/>
+            <column name="enrollment_no" type="VARCHAR(255)"/>
+            <column name="profile_photo_url" type="VARCHAR(255)"/>
+            <column name="co_supervisor" type="VARCHAR(255)"/>
+            <column name="phd_coordinator" type="VARCHAR(255)">
+                <constraints nullable="false"/>
             </column>
-            <column name="profile_photo_url" type="TEXT">
-                <constraints nullable="true"/>
-            </column>
+            <column name="nationality" type="VARCHAR(255)"/>
+            <column name="viva_date" type="DATE"/>
+            <column name="fellowship" type="BOOLEAN"/>
+            <column name="full_time_or_part_time" type="VARCHAR(50)"/>
             <column name="supervisor" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="hod_nominee" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="supervisor_nominee" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
-            <column name="research_title" type="TEXT">
+            <column name="hod_nominee" type="VARCHAR(255)"/>
+            <column name="supervisor_nominee" type="VARCHAR(255)"/>
+            <column name="research_title" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="status" type="VARCHAR(50)">
@@ -114,13 +114,12 @@
             <column name="title_status" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="phd_coordinator" type="VARCHAR(255)">
-                <constraints nullable="true"/>
-            </column>
+            <!-- Timestamps -->
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
     </changeSet>
+
 
 
     <!-- 4. Coordinators Table -->
@@ -135,10 +134,14 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="department" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
     </changeSet>
 
@@ -154,10 +157,17 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="role" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="department" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
     </changeSet>
 
@@ -191,6 +201,13 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="10-add-status-check-constraint" author="cseazeem">
+        <sql>
+            ALTER TABLE reports ADD CONSTRAINT chk_report_status
+                CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED'));
+        </sql>
+    </changeSet>
+
     <!-- 7. Signatures Table -->
     <changeSet id="10-create-signatures-table" author="cseazeem">
         <createTable tableName="signatures">
@@ -209,5 +226,73 @@
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="13-create-report-approvals-table" author="cseazeem">
+        <createTable tableName="report_approvals">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="report_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_report_approval_report" references="reports(id)"/>
+            </column>
+            <column name="rac_member_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_report_approval_rac" references="rac_members(id)"/>
+            </column>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remarks" type="TEXT"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Modify Reports Table: Add Rejection Remarks -->
+    <changeSet id="11-add-rejection-remarks-to-reports" author="cseazeem">
+        <addColumn tableName="reports">
+            <column name="rejection_remarks" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- Modify Signatures Table: Add Positioning Fields -->
+    <changeSet id="12-add-signature-position-to-signatures" author="cseazeem">
+        <addColumn tableName="signatures">
+            <column name="x" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="y" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="14-create-notices-table" author="cseazeem">
+        <createTable tableName="notices">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="uploaded_by_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_notice_uploader" references="users(id)"/>
+            </column>
+            <column name="role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notice_path" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
 
 </databaseChangeLog>
