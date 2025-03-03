@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler({ExpiredOtpException.class, InvalidOtpException.class, InvalidEmailOrPasswordException.class,
-    UserAlreadyExistsException.class, UserNotFoundException.class})
+    UserAlreadyExistsException.class, UserNotFoundException.class, ReportNotFoundException.class})
     public ResponseEntity<String> handleOtpExceptions(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
