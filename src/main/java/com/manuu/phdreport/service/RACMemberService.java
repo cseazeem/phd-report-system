@@ -16,11 +16,6 @@ import java.util.Optional;
 public class RACMemberService {
     private final RACMemberDao racMemberDao;
 
-    // 🔹 Add a new RAC Member
-    public Long addRACMember(RACMember racMember) {
-        return racMemberDao.insertRACMember(racMember);
-    }
-
     // 🔹 Update an existing RAC Member
     public void updateRACMember(RACMember racMember) {
         if (racMemberDao.findById(racMember.getId()).isEmpty()) {

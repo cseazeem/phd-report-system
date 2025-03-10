@@ -62,13 +62,6 @@ public class RACMemberController {
         return ResponseEntity.ok("Report rejected successfully.");
     }
 
-//    // 🔹 Create a new RAC Member
-//    @PostMapping("/add")
-//    public ResponseEntity<String> addRACMember(@RequestBody RACMember racMember) {
-//        Long id = racMemberService.addRACMember(racMember);
-//        return ResponseEntity.ok("RAC Member added successfully with ID: " + id);
-//    }
-
     // 🔹 Update an existing RAC Member
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateRACMember(@PathVariable Long id, @RequestBody RACMember racMember) {
