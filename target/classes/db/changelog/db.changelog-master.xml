@@ -294,5 +294,15 @@
         </createTable>
     </changeSet>
 
-
+    <!-- 3. Insert Hardcoded Admin User -->
+    <changeSet id="3-insert-admin-user" author="cseazeem">
+        <insert tableName="users">
+            <column name="email" value="admin@example.com"/>
+            <column name="password" value="$2a$10$E0A1hme3hGyWEVNmtgV/tOlGpfi.iUYDhySVBlrPHf06MZ7Sh1fyW"/> <!-- bcrypt for "password123" -->
+            <column name="role" value="ADMIN"/>
+            <column name="status" value="APPROVED"/>
+            <column name="created_at" valueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" valueComputed="CURRENT_TIMESTAMP"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>
