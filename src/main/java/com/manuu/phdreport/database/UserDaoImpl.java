@@ -1,5 +1,6 @@
 package com.manuu.phdreport.database;
 
+import com.manuu.phdreport.entity.Scholar;
 import com.manuu.phdreport.entity.User;
 import com.manuu.phdreport.entity.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,9 @@ public class UserDaoImpl {
         return new PageImpl<>(users, pageable, totalCount);
     }
 
-    public PageImpl<UserResponse> findAllByRole(String role, Pageable pageable) {
-        int totalCount = userDao.countUsersByRole(role);
-        List<UserResponse> users = userDao.findAllPaginatedByRole(role, pageable.getPageSize(), (int) pageable.getOffset());
+    public PageImpl<Scholar> findAllByRole(Pageable pageable) {
+        int totalCount = userDao.countPhdScholars();
+        List<Scholar> users = userDao.findAllPaginatedByRole(pageable.getPageSize(), (int) pageable.getOffset());
         return new PageImpl<>(users, pageable, totalCount);
     }
 

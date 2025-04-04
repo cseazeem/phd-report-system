@@ -1,10 +1,13 @@
 package com.manuu.phdreport.database;
 
 import com.manuu.phdreport.entity.Report;
+import com.manuu.phdreport.entity.ReportDTO;
 import com.manuu.phdreport.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.jdbi.v3.core.Jdbi;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -33,6 +36,10 @@ public class ReportDaoImpl {
 
     public void updateReportPath(Long reportId, String reportPath) {
         reportDao.updateReportPath(reportId, reportPath);
+    }
+
+    public List<ReportDTO> findAllReports() {
+        return reportDao.findAll();
     }
 
 }

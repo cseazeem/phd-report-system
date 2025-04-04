@@ -39,17 +39,26 @@ public class UserService {
         return new PageImpl<>(userResponses, pageable, usersPage.getTotalElements());
     }
 
-    public Page<UserResponse> getScholarUsers(int page, int size, String role) {
-        Pageable pageable = PageRequest.of(page, size);
-        PageImpl<UserResponse> usersPage = userDao.findAllByRole(role, pageable);
+//    public Page<Scholar> getScholarUsers(int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        PageImpl<Scholar> usersPage = userDao.findAllByRole(pageable);
+//
+//        List<Scholar> userResponses = usersPage.getContent()
+//                .stream()
+//                .map(this::mapToUserResponse)
+//                .collect(Collectors.toList());
+//
+//        return new PageImpl<>(userResponses, pageable, usersPage.getTotalElements());
+//    }
+public Page<Scholar> getScholarUsers(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Scholar> usersPage = userDao.findAllByRole(pageable); // Fetch paginated data
 
-        List<UserResponse> userResponses = usersPage.getContent()
-                .stream()
-                .map(this::mapToUserResponse)
-                .collect(Collectors.toList());
+    // No need to map if there's no transformation required
+    List<Scholar> userResponses = usersPage.getContent();
 
-        return new PageImpl<>(userResponses, pageable, usersPage.getTotalElements());
-    }
+    return new PageImpl<>(userResponses, pageable, usersPage.getTotalElements());
+}
 
 
     private UserResponse mapToUserResponse(UserResponse user) {
@@ -77,10 +86,6 @@ public class UserService {
         if (!List.of("SCHOLAR", "COORDINATOR", "RAC_MEMBER").contains(user.getRole())) {
             throw new IllegalStateException("Invalid role: " + user.getRole());
         }
-
-        //set the user's status to APPROVED
-        user.setStatus("APPROVED");
-        userDao.updateUserStatus(user.getId(),user.getStatus());  //save the updated user status to the database
 
         // If the user is a PhD Scholar, create an entry in `phd_scholars` table
         if ("SCHOLAR".equals(user.getRole())) {
@@ -124,14 +129,15 @@ public class UserService {
 
         // Handle RAC_MEMBER role assignment
         if (user.getRole().equals("RAC_MEMBER")) {
-            if (!List.of("SUPERVISOR", "HOD_NOMINEE", "SUPERVISOR_NOMINEE").contains(racMemberRole)) {
-                throw new IllegalStateException("Invalid RAC_MEMBER role: " + racMemberRole);
-            }
+//            if (!List.of("SUPERVISOR", "HOD_NOMINEE", "SUPERVISOR_NOMINEE").contains(racMemberRole)) {
+//                throw new IllegalStateException("Invalid RAC_MEMBER role: " + racMemberRole);
+//            }
 
             RACMember racMember = RACMember.builder()
                     .userId(user.getId())
                     .email(user.getEmail())
-                    .role(racMemberRole) // Set role dynamically
+                    .role("SUPERVISOR") // Set role dynamically
+                    .designation("Default Designation")
                     .name("Default Name")
                     .department("Default Department")
                     .build();
@@ -139,6 +145,10 @@ public class UserService {
             racMemberDao.insertRACMember(racMember);
             emailService.sendConfirmation(user.getEmail(), "RAC Member Approved as " + racMemberRole);
         }
+
+        //set the user's status to APPROVED
+        user.setStatus("APPROVED");
+        userDao.updateUserStatus(user.getId(),user.getStatus());  //save the updated user status to the database
     }
 
     public void rejectUser(Long userId) {

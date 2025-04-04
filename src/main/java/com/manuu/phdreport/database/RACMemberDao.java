@@ -15,13 +15,14 @@ import java.util.Optional;
 public interface RACMemberDao {
 
     // 🔹 Insert a new RAC Member
-    @SqlUpdate("INSERT INTO rac_members (user_id, name, role, department, created_at, update_at) " +
-            "VALUES (:userId, :name, :role, :department, current_timestamp, current_timestamp)")
+    @SqlUpdate("INSERT INTO rac_members (user_id, name, email, role, department, created_at, updated_at, designation) " +
+            "VALUES (:userId, :name, :email, :role, :department, current_timestamp, current_timestamp, :designation)")
     @GetGeneratedKeys
     Long insertRACMember(@BindBean RACMember racMember);
 
+
     // 🔹 Update an existing RAC Member
-    @SqlUpdate("UPDATE rac_members SET name = :name, role = :role, department = :department, updated_at = current_timestamp WHERE id = :id")
+    @SqlUpdate("UPDATE rac_members SET name = :name, email = :email, role = :role, department = :department, updated_at = current_timestamp, designation=:designation WHERE id = :id")
     void updateRACMember(@BindBean RACMember racMember);
 
     // 🔹 Delete a RAC Member by ID
@@ -29,8 +30,11 @@ public interface RACMemberDao {
     void deleteRACMember(@Bind("id") Long id);
 
     // 🔹 Find a RAC Member by ID
-    @SqlQuery("SELECT * FROM rac_members WHERE id = :id")
+    @SqlQuery("SELECT * FROM rac_members WHERE user_id = :id")
     Optional<RACMember> findById(@Bind("id") Long id);
+
+    @SqlQuery("SELECT * FROM rac_members WHERE user_id = :id")
+    Long findId(@Bind("id") Long id);
 
     // 🔹 Find all RAC Members
     @SqlQuery("SELECT * FROM rac_members ORDER BY created_at DESC")

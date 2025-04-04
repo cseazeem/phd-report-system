@@ -1,15 +1,23 @@
 package com.manuu.phdreport.controller;
 
 import com.manuu.phdreport.entity.RACMember;
+import com.manuu.phdreport.entity.Report;
+import com.manuu.phdreport.entity.ReportDTO;
 import com.manuu.phdreport.service.JwtService;
 import com.manuu.phdreport.service.RACMemberService;
 import com.manuu.phdreport.service.ReportService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,14 +35,14 @@ public class RACMemberController {
             @PathVariable Long reportId,
             @RequestHeader("Authorization") String token) {
 
-        Long racMemberId = jwtService.extractUserId(token);
+        Long userId = jwtService.extractUserId(token);
         String role = jwtService.extractRole(token);
 
-        if (!List.of("SUPERVISOR", "HOD_NOMINEE", "SUPERVISOR_NOMINEE").contains(role)) {
+        if (!List.of("RAC_MEMBER").contains(role)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access Denied");
         }
 
-        boolean isFullyApproved = reportService.approveReport(reportId, racMemberId, role);
+        boolean isFullyApproved = reportService.approveReport(reportId, userId, role);
 
         if (isFullyApproved) {
             return ResponseEntity.ok("Report fully approved and signed.");
@@ -91,6 +99,31 @@ public class RACMemberController {
         return ResponseEntity.ok(racMemberService.getAllRACMembers(page, size));
     }
 
+    @GetMapping("all/reports")
+    public ResponseEntity<List<ReportDTO>> getAllReports(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(reportService.getAllReports());
+    }
 
+    @GetMapping(path = "/report/{scholarId}", produces = "application/pdf")
+    public ResponseEntity<Resource> downloadReport(@PathVariable("scholarId") Long scholarId) {
+        try {
+            File pdfFile = reportService.getReportFile(scholarId);
+
+            if (!pdfFile.exists()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(pdfFile));
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + pdfFile.getName())
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
 
 }
