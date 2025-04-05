@@ -39,6 +39,10 @@ public class AuthenticationService {
         if (Objects.isNull(user)){
                 throw new UserNotFoundException("User not found");
         }
+        // Check user status                 CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED'));
+        if ("PENDING".equalsIgnoreCase(user.getStatus()) || "REJECTED".equalsIgnoreCase(user.getStatus())) {
+            throw new UserNotFoundException("Your account is not approved for login");
+        }
         return user;
     }
 }

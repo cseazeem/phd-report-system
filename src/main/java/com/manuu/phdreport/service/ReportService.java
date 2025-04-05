@@ -3,21 +3,23 @@ package com.manuu.phdreport.service;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.layout.element.Image;
 import com.manuu.phdreport.database.*;
-import com.manuu.phdreport.entity.Report;
-import com.manuu.phdreport.entity.Scholar;
-import com.manuu.phdreport.entity.Signature;
+import com.manuu.phdreport.entity.*;
 import com.manuu.phdreport.exceptions.ReportNotFoundException;
 import com.manuu.phdreport.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.itextpdf.kernel.pdf.*;
@@ -33,6 +35,7 @@ public class ReportService {
     private final CoordinatorDao coordinatorDao;
     private final ReportApprovalDao reportApprovalDao;
     private final SignatureDao signatureDao;
+    private final RACMemberDao racMemberDao;
 
     public String generateScholarReport(Long scholarId, Long coordinatorUserId) throws Exception {
         Scholar scholar = scholarDao.findById(scholarId);
@@ -40,9 +43,15 @@ public class ReportService {
             throw new UserNotFoundException("Scholar not found");
         }
 
-        String docxTemplatePath = "C:\\Users\\azeem\\Desktop\\Zaki\\input\\Minutes_Template.docx";
-        String generatedDocxPath = "C:\\Users\\azeem\\Desktop\\Zaki\\output\\generated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".docx";
-        String generatedPdfPath = "C:\\Users\\azeem\\Desktop\\Zaki\\output\\generated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".pdf";
+        // ✅ Check if report already exists
+        Report existingReport = reportDao.findByScholarId(scholarId);
+        if (existingReport != null) {
+            throw new Exception("Report already generated for this scholar.");
+        }
+
+        String docxTemplatePath = "C:\\Users\\Zaki Anwar\\Desktop\\New folder (2)\\Minutes_Template.docx";
+        String generatedDocxPath = "C:\\Users\\Zaki Anwar\\Desktop\\New folder (2)generated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".docx";
+        String generatedPdfPath = "C:\\Users\\Zaki Anwar\\Desktop\\New folder (2)generated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".pdf";
 
         replacePlaceholdersInDocx(docxTemplatePath, generatedDocxPath, scholar);
 
@@ -134,12 +143,16 @@ public class ReportService {
             throw new UserNotFoundException("Scholar not found");
         }
         Report report = reportDao.findByScholarId(scholarId);
+        if(Objects.isNull(report)) {
+            throw new UserNotFoundException("Report not found");
+        }
 
         return new File(report.getReportPath());
     }
 
 
-    public boolean approveReport(Long reportId, Long racMemberId, String role) {
+    public boolean approveReport(Long reportId, Long userId, String role) {
+        Long racMemberId = racMemberDao.findId(userId);
         Report report = reportDao.findById(reportId);
         if (report == null) {
             throw new ReportNotFoundException("Report not found");
@@ -195,6 +208,15 @@ public class ReportService {
         }
     }
 
+    // 🔹 Get all RAC Members
+    public List<ReportDTO> getAllReports() {
+//        int offset = (page - 1) * size; // Calculate offset for pagination
+        List<ReportDTO> reports = reportDao.findAllReports();
+//        int totalRecords = racMemberDao.getTotalRACMembers();
+
+        return reports;
+//        return new PageImpl<>(racMembers, PageRequest.of(page, size), totalRecords);
+    }
 
 }
 

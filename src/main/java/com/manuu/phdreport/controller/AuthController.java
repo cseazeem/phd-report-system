@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -22,10 +24,15 @@ public class AuthController {
     private final AuthenticationService authenticate;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationRequest request) {
+    public ResponseEntity<Map<String, String>> registerUser(@RequestBody UserRegistrationRequest request) {
         authService.registerUser(request);
-        return ResponseEntity.ok("OTP sent to email. Please verify.");
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "OTP sent to email. Please verify.");
+
+        return ResponseEntity.ok(response);
     }
+
 
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(@RequestBody UserVerification request) {
