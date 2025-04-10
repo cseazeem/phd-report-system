@@ -34,6 +34,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+//                .cors(cors -> cors.disable())  // Allow frontend requests
+//                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configure(http))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -43,7 +46,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/phd-scholar/**").hasAuthority("ROLE_COORDINATOR")
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("api/coordinator/**").hasAuthority("ROLE_COORDINATOR")
+                        .requestMatchers("api/coordinator/**").hasAuthority("ROLE_RAC_MEMBER")
                         .requestMatchers("/api/rac-member/**").hasAuthority("ROLE_RAC_MEMBER")
+                        .requestMatchers("/api/rac-member/**").hasAuthority("ROLE_COORDINATOR")
                         .requestMatchers("/api/signatures/**").hasAuthority("ROLE_RAC_MEMBER")
                         .requestMatchers("/api/notice/**").hasAuthority("ROLE_RAC_MEMBER")
                         .requestMatchers("/api/notice/**").hasAuthority("ROLE_COORDINATOR")

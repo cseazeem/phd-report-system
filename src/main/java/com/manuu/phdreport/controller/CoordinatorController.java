@@ -2,12 +2,10 @@ package com.manuu.phdreport.controller;
 
 import com.manuu.phdreport.database.CoordinatorDao;
 import com.manuu.phdreport.entity.Coordinator;
+import com.manuu.phdreport.entity.RACMember;
 import com.manuu.phdreport.entity.Scholar;
 import com.manuu.phdreport.entity.UserResponse;
-import com.manuu.phdreport.service.JwtService;
-import com.manuu.phdreport.service.ReportService;
-import com.manuu.phdreport.service.ScholarService;
-import com.manuu.phdreport.service.UserService;
+import com.manuu.phdreport.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -30,6 +28,7 @@ public class CoordinatorController {
     private final ScholarService scholarService;
     private final ReportService reportService;
     private final JwtService jwtUtils;
+    private final RACMemberService racMemberService;
 
     @GetMapping("/{userId}")
     public ResponseEntity<Coordinator> getCoordinatorProfile(@PathVariable Long userId) {
@@ -39,12 +38,11 @@ public class CoordinatorController {
     }
 
     @GetMapping("/scholar-users")
-    public ResponseEntity<Page<UserResponse>> getAllUsers(
+    public ResponseEntity<Page<Scholar>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "SCHOLAR") String role) {
+            @RequestParam(defaultValue = "10") int size) {
 
-        Page<UserResponse> users = userService.getScholarUsers(page, size, role);
+        Page<Scholar> users = userService.getScholarUsers(page, size);
         return ResponseEntity.ok(users);
     }
 
@@ -78,9 +76,9 @@ public class CoordinatorController {
             String role = jwtUtils.extractRole(token);
 
             // Ensure only Coordinators can generate reports
-            if (!"COORDINATOR".equals(role)) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
-            }
+//            if (!"COORDINATOR".equals(role)) {
+//                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+//            }
 
             // Generate report
             String pdfPath = reportService.generateScholarReport(scholarId, coordinatorUserId);
@@ -98,7 +96,7 @@ public class CoordinatorController {
                     .body(resource);
 
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
@@ -118,10 +116,24 @@ public class CoordinatorController {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + pdfFile.getName())
                     .body(resource);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
 
+    @GetMapping("/all")
+    public ResponseEntity<Page<RACMember>> getAllRACMembers(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(racMemberService.getAllRACMembers(page, size));
+    }
+
+    // 🔹 Update an existing RAC Member
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateRACMember(@PathVariable Long id, @RequestBody RACMember racMember) {
+        racMember.setId(id);
+        racMemberService.updateRACMember(racMember);
+        return ResponseEntity.ok("RAC Member updated successfully.");
+    }
 
 }

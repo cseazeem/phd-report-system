@@ -5,13 +5,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c16324c2-b4ac-4f6d-9969-f292a6a62c10" name="Changes" comment="d5">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/entity/ReportDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/configuration/WebConfig.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/ReportDTO$ReportDTOBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/ReportDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/phd-report-system-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/phd-report-system-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.manuu.phdreport.PhdReportSystemApplicationTests.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/surefire-reports/com.manuu.phdreport.PhdReportSystemApplicationTests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/configuration/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/configuration/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/CoordinatorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/CoordinatorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/RACMemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/RACMemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/SignatureController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/SignatureController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/RACMemberDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/RACMemberDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/ReportDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/ReportDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/ReportDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/ReportDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/SignatureDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/SignatureDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/entity/RACMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/entity/RACMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/SignatureService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/SignatureService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/db.changelog-master.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/AuthController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/CoordinatorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/CoordinatorController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/RACMemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/RACMemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/exceptions/GlobalExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/exceptions/GlobalExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/RACMemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/RACMemberService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/SignatureController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/controller/SignatureController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/RACMemberDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/RACMemberDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/ReportDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/ReportDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/ReportDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/ReportDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/SignatureDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/SignatureDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/UserDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/UserDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/database/UserDaoImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/RACMember$RACMemberBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/RACMember$RACMemberBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/RACMember.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/entity/RACMember.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/security/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/AuthenticationService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/ReportService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/ReportService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/SignatureService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/SignatureService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/manuu/phdreport/service/UserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/db/changelog/db.changelog-master.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/changelog/db.changelog-master.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +75,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="phd_scholars" />
+        <entry key="$PROJECT_DIR$" value="zaki-1" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -307,8 +350,38 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="96918a2c-23bf-4764-ac77-b2627d10132c" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="96918a2c-23bf-4764-ac77-b2627d10132c">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
@@ -331,43 +404,15 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/ScholarController.java</url>
-          <line>34</line>
-          <option name="timeStamp" value="26" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/security/JwtAuthFilter.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java</url>
-          <line>62</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java</url>
-          <line>65</line>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/database/ReportDaoImpl.java</url>
-          <line>18</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/controller/CoordinatorController.java</url>
-          <line>85</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/UserService.java</url>
-          <line>115</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/service/ReportService.java</url>
-          <line>48</line>
-          <option name="timeStamp" value="41" />
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/manuu/phdreport/security/SecurityConfig.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

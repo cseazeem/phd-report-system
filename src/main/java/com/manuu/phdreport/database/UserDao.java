@@ -1,5 +1,6 @@
 package com.manuu.phdreport.database;
 
+import com.manuu.phdreport.entity.Scholar;
 import com.manuu.phdreport.entity.User;
 import com.manuu.phdreport.entity.UserResponse;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
@@ -37,12 +38,12 @@ public interface UserDao {
     @RegisterBeanMapper(User.class)
     User findById(@Bind("id") Long id);
 
-    @SqlQuery("SELECT * FROM users WHERE role = :role ORDER BY created_at DESC LIMIT :size OFFSET :offset")
-    @RegisterBeanMapper(UserResponse.class)
-    List<UserResponse> findAllPaginatedByRole(@Bind("role") String role, @Bind("size") int size, @Bind("offset") int offset);
+    @SqlQuery("SELECT * FROM phd_scholars ORDER BY created_at DESC LIMIT :size OFFSET :offset")
+    @RegisterBeanMapper(Scholar.class)
+    List<Scholar> findAllPaginatedByRole(@Bind("size") int size, @Bind("offset") int offset);
 
-    @SqlQuery("SELECT COUNT(*) FROM users WHERE role = :role")
-    int countUsersByRole(@Bind("role") String role);
+    @SqlQuery("SELECT COUNT(*) FROM phd_scholars")
+    int countPhdScholars();
 
 }
 

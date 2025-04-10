@@ -29,7 +29,7 @@ public class SignatureController {
             Long racMemberId = jwtService.extractUserId(token);
             String role = jwtService.extractRole(token);
 
-            if (!List.of("SUPERVISOR", "HOD_NOMINEE", "SUPERVISOR_NOMINEE").contains(role)) {
+            if (!List.of("RAC_MEMBER").contains(role)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access Denied");
             }
 
