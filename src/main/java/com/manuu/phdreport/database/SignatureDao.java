@@ -18,4 +18,8 @@ public interface SignatureDao {
     @SqlQuery("SELECT * FROM signatures WHERE report_id = :reportId")
     @RegisterBeanMapper(Signature.class)
     List<Signature> getSignaturesForReport(@Bind("reportId") Long reportId);
+
+    @SqlQuery("SELECT * FROM signatures WHERE rac_member_id = :id")
+    @RegisterBeanMapper(Signature.class)
+    Signature findById(@Bind("id") Long id);
 }
