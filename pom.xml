@@ -106,33 +106,6 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>5.2.5</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>2.0.27</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j -->
-		<dependency>
-			<groupId>org.docx4j</groupId>
-			<artifactId>docx4j</artifactId>
-			<version>6.1.2</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.docx4j/docx4j-export-fo -->
-		<dependency>
-			<groupId>org.docx4j</groupId>
-			<artifactId>docx4j-export-fo</artifactId>
-			<version>11.5.1</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/com.itextpdf/itext7-core -->
 		<dependency>
 			<groupId>com.itextpdf</groupId>
@@ -141,32 +114,28 @@
 			<type>pom</type>
 		</dependency>
 
-
-
-		<!-- JAXB API -->
+		<!-- SpringDoc OpenAPI for Swagger documentation -->
 		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-
-		<!-- JAXB Runtime (Implementation) -->
-		<dependency>
-			<groupId>org.glassfish.jaxb</groupId>
-			<artifactId>jaxb-runtime</artifactId>
-			<version>2.3.1</version>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 
 
 
-		<!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/org.apache.poi.xwpf.converter.pdf -->
-		<dependency>
-			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
-			<version>1.0.6</version> <!-- Changed to a valid version -->
-		</dependency>
+<!--		&lt;!&ndash; JAXB API &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>javax.xml.bind</groupId>-->
+<!--			<artifactId>jaxb-api</artifactId>-->
+<!--			<version>2.3.1</version>-->
+<!--		</dependency>-->
 
-
+<!--		&lt;!&ndash; JAXB Runtime (Implementation) &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>org.glassfish.jaxb</groupId>-->
+<!--			<artifactId>jaxb-runtime</artifactId>-->
+<!--			<version>2.3.1</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>

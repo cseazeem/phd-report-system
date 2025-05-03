@@ -18,7 +18,7 @@ public class RACMemberService {
 
     // 🔹 Update an existing RAC Member
     public void updateRACMember(RACMember racMember) {
-        if (racMemberDao.findById(racMember.getId()).isEmpty()) {
+        if (racMemberDao.findRACById(racMember.getId()).isEmpty()) {
             throw new IllegalStateException("RAC Member not found.");
         }
         racMemberDao.updateRACMember(racMember);

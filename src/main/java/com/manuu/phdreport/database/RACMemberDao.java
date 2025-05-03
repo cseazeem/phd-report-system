@@ -29,6 +29,9 @@ public interface RACMemberDao {
     @SqlUpdate("DELETE FROM rac_members WHERE id = :id")
     void deleteRACMember(@Bind("id") Long id);
 
+    @SqlQuery("SELECT * FROM rac_members WHERE id = :id")
+    Optional<RACMember> findRACById(@Bind("id") Long id);
+
     // 🔹 Find a RAC Member by ID
     @SqlQuery("SELECT * FROM rac_members WHERE user_id = :id")
     Optional<RACMember> findById(@Bind("id") Long id);

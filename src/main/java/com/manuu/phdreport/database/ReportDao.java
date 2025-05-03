@@ -59,6 +59,9 @@ public interface ReportDao {
     List<ReportDTO> findAll();
 
 
+    @SqlQuery("SELECT * FROM reports WHERE scholar_id = :id AND status = 'APPROVED'")
+    @RegisterBeanMapper(Report.class)
+    Report findApprovedReportById(@Bind("id") Long id);
 
 
 }

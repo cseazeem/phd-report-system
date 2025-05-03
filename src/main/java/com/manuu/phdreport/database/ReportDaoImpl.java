@@ -42,4 +42,7 @@ public class ReportDaoImpl {
         return reportDao.findAll();
     }
 
+    public Report findApprovedReportById(Long id) {
+        return reportDao.findApprovedReportById(id);
+    }
 }

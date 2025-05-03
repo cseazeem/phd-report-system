@@ -1,6 +1,8 @@
 package com.manuu.phdreport.controller;
 
+import com.manuu.phdreport.entity.Report;
 import com.manuu.phdreport.entity.Scholar;
+import com.manuu.phdreport.service.JwtService;
 import com.manuu.phdreport.service.ReportService;
 import com.manuu.phdreport.service.ScholarService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class ScholarController {
 
     private final ScholarService scholarService;
     private final ReportService reportService;
+    private final JwtService jwtService;
 
     @PostMapping("/submit-details")
     public ResponseEntity<String> submitScholarDetails(@RequestBody Scholar request) {
@@ -48,5 +51,22 @@ public class ScholarController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    @GetMapping("/approved")
+    public ResponseEntity<?> getApprovedReport(@RequestHeader("Authorization") String token) {
+
+        Long userId = jwtService.extractUserId(token);
+
+        Report report = reportService.getApprovedReportById(userId);
+
+        if (report == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No approved report found for ID: " + userId);
+        }
+
+        return ResponseEntity.ok(report);
+    }
+
+
+
 }
 
