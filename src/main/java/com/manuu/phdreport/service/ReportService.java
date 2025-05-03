@@ -7,9 +7,6 @@ import com.manuu.phdreport.entity.*;
 import com.manuu.phdreport.exceptions.ReportNotFoundException;
 import com.manuu.phdreport.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -60,9 +57,9 @@ public class ReportService {
 
 
 //E:\phdReportDocs
-        String docxTemplatePath = "C:\\Users\\Zaki Anwar\\Desktop\\New folder (2)\\Minutes_Template.docx";
-        String generatedDocxPath = "E:\\phdReportDocs\\New foldergenerated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".docx";
-        String generatedPdfPath = "E:\\phdReportDocs\\New foldergenerated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".pdf";
+        String docxTemplatePath = "C:\\Users\\azeem\\Desktop\\phddddd\\input\\Minutes_Template.docx";
+        String generatedDocxPath = "C:\\Users\\azeem\\Desktop\\phddddd\\output\\New foldergenerated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".docx";
+        String generatedPdfPath = "C:\\Users\\azeem\\Desktop\\phddddd\\output\\New foldergenerated_" + scholar.getRollNo() + "_" + System.currentTimeMillis() + ".pdf";
 
         replacePlaceholdersInDocx(docxTemplatePath, generatedDocxPath, scholar);
 
@@ -459,6 +456,11 @@ public class ReportService {
         }
 
         return new File(signature.getSignaturePath());
+    }
+
+    public Report getApprovedReportById(Long userId) {
+        Scholar scholar = scholarDao.findByUserId(userId);
+        return reportDao.findApprovedReportById(scholar.getId());
     }
 
 

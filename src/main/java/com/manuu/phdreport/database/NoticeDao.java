@@ -23,8 +23,13 @@ public interface NoticeDao {
             "VALUES (:uploadedById, :role, :noticePath, :title, :description, current_timestamp)")
     void insertNotice(@BindBean Notice notice);
 
-    @SqlQuery("SELECT * FROM notices ORDER BY created_at DESC")
+    @SqlQuery("SELECT * FROM notices ORDER BY created_at DESC LIMIT :size OFFSET :offset")
     @RegisterBeanMapper(Notice.class)
-    List<Notice> getAllNotices();
+    List<Notice> getAllNotices(@Bind("offset") int offset, @Bind("size") int size);
+
+    @SqlQuery("SELECT * FROM notices where id=:id")
+    @RegisterBeanMapper(Notice.class)
+    Notice getNoticeFile(Long id);
+
 
 }

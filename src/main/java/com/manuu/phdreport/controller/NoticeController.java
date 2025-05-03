@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 @RestController
@@ -39,7 +41,7 @@ public class NoticeController {
             Long uploadedById = jwtService.extractUserId(token);
             String role = jwtService.extractRole(token);
 
-            if (!List.of("COORDINATOR", "SUPERVISOR", "HOD_NOMINEE", "SUPERVISOR_NOMINEE").contains(role)) {
+            if (!List.of("COORDINATOR", "RAC_MEMBER").contains(role)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access Denied");
             }
 
@@ -52,9 +54,33 @@ public class NoticeController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<Notice>> getAllNotices() {
-        List<Notice> notices = noticeService.getAllNotices();
+    public ResponseEntity<List<Notice>> getAllNotices(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        List<Notice> notices = noticeService.getAllNotices(page, size);
         return ResponseEntity.ok(notices);
     }
+
+    @GetMapping(path = "/{noticeId}", produces = "application/pdf")
+    public ResponseEntity<Resource> downloadReport(@PathVariable("noticeId") Long noticeId) {
+        try {
+            File pdfFile = noticeService.getNoticeFile(noticeId);
+
+            if (!pdfFile.exists()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(pdfFile));
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + pdfFile.getName())
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
 
 }

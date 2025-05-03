@@ -28,6 +28,10 @@ Long insertScholar(@BindBean Scholar scholar);
     @RegisterBeanMapper(Scholar.class)
     Scholar findById(@Bind("id") Long id);
 
+    @SqlQuery("SELECT * FROM phd_scholars WHERE user_id = :id")
+    @RegisterBeanMapper(Scholar.class)
+    Scholar findByUserId(@Bind("id") Long id);
+
 
     @SqlUpdate("""
     UPDATE phd_scholars 
