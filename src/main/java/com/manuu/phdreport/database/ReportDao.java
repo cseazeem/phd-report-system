@@ -63,5 +63,13 @@ public interface ReportDao {
     @RegisterBeanMapper(Report.class)
     Report findApprovedReportById(@Bind("id") Long id);
 
+    @SqlQuery("""
+        SELECT r.* FROM reports r
+        JOIN phd_scholar_rac_members srm ON r.scholar_id = srm.phd_scholar_id
+        WHERE srm.rac_member_id = :racMemberId
+        ORDER BY r.created_at DESC
+    """)
+    List<Report> findReportsByRacMemberId(@Bind("racMemberId") Long racMemberId);
+
 
 }

@@ -70,5 +70,9 @@ public class JdbiConfiguration {
     public RACMemberDao racMemberDao(Jdbi jdbi) {
         return jdbi.onDemand(RACMemberDao.class);
     }
+    @Bean
+    public PhDScholarRACMemberDao  phDScholarRACMemberDao(Jdbi jdbi) {
+        return jdbi.onDemand(PhDScholarRACMemberDao.class);
+    }
 }
 

@@ -45,4 +45,9 @@ public class ReportDaoImpl {
     public Report findApprovedReportById(Long id) {
         return reportDao.findApprovedReportById(id);
     }
+
+    public List<Report> getReportsAssignedToRacMember(Long racMemberId) {
+        return reportDao.findReportsByRacMemberId(racMemberId);
+    }
+
 }

@@ -56,6 +56,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/signatures/**").hasAuthority("ROLE_RAC_MEMBER")
                         .requestMatchers("/api/notice/**").hasAnyAuthority("ROLE_SCHOLAR", "ROLE_RAC_MEMBER")
                         .requestMatchers("/api/notice/**").hasAuthority("ROLE_COORDINATOR")
+                        .requestMatchers("/api/scholar-rac/**").hasAuthority("ROLE_COORDINATOR")
                         .anyRequest().authenticated()
 
                 )

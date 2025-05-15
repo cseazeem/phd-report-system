@@ -6,6 +6,7 @@ import com.manuu.phdreport.entity.ReportDTO;
 import com.manuu.phdreport.service.JwtService;
 import com.manuu.phdreport.service.RACMemberService;
 import com.manuu.phdreport.service.ReportService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -125,5 +126,17 @@ public class RACMemberController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
+//    @GetMapping("/assigned-to-rac")
+//    public ResponseEntity<List<Report>> getAssignedReports(HttpServletRequest request) {
+//        String token = request.getHeader("Authorization").replace("Bearer ", "");
+//        Long userId = jwtService.extractUserId(token);  // user_id from JWT
+//
+//        // Get RAC Member ID (mapped via user_id)
+//        Long racMemberId = jwtService.getRacMemberIdFromUserId(userId); // Implement this helper
+//
+//        List<Report> reports = reportService.getReportsAssignedToRacMember(racMemberId);
+//        return ResponseEntity.ok(reports);
+//    }
 
 }
